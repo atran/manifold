@@ -55,39 +55,45 @@ namespace :manifold do
 
     desc "Imports text/project metadata from Verso's API"
     task :verso_metadata => :environment do |_t, args|
-      ApplicationRecord.transaction do
-        Text.all.each do |text|
-          text_project = text.project
-          isbn = text.metadata['unique_identifier'].gsub('-', '')
+      logger = Manifold::Rake.logger
+      Project.all.each do |text_project|
+        ApplicationRecord.transaction do
+          isbn = text_project.texts.first.metadata['unique_identifier'].tr('^0-9', '')
           api_url = "https://versobooks.com/api/v1/editions.json?isbn=#{isbn}"
-          # Note that this redirects to the "dominant"
-          # aka physical book reference rather than 
-          # the ePub reference.
-          verso_metadata = JSON.parse(open(api_url).read)
+          begin
+            logger.info "Reading #{api_url}..."
 
-          # Text metadata
-          text_project.pending_slug = verso_metadata['slug']
-          text_project.description = verso_metadata['description']
-          text_project.subtitle = verso_metadata['teaser']
+            # Note that this redirects to the "dominant"
+            # aka physical book reference rather than 
+            # the ePub reference.
+            verso_metadata = JSON.parse(open(api_url).read)
 
-          # Image metadata
-          image_url = verso_metadata['primary_image_url']
-          filename = File.basename(URI.parse(image_url).path)
-          ext = File.extname(filename)
-          name = File.basename(filename, ext)
-          tmp = Tempfile.new([name, ext])
-          File.open(tmp, "wb") { |fo| fo.write(open(image_url).read) }
-          text_project.avatar = open(tmp)
-          text_project.hero = open(tmp)
+            # Text metadata
+            text_project.pending_slug = verso_metadata['slug']
+            text_project.description = verso_metadata['description']
+            text_project.subtitle = verso_metadata['teaser']
 
-          # Link metadata
-          text_project.action_callouts.destroy_all
-          text_project.action_callouts.create(
-            title: 'Verso Catalog',
-            url: verso_metadata['url']
-          )
+            # Image metadata
+            image_url = verso_metadata['primary_image_url']
+            filename = File.basename(URI.parse(image_url).path)
+            ext = File.extname(filename)
+            name = File.basename(filename, ext)
+            tmp = Tempfile.new([name, ext])
+            File.open(tmp, "wb") { |fo| fo.write(open(image_url).read) }
+            text_project.avatar = open(tmp)
+            text_project.hero = open(tmp)
 
-          text_project.save
+            # Link metadata
+            text_project.action_callouts.destroy_all
+            text_project.action_callouts.create(
+              title: 'Verso Catalog',
+              url: verso_metadata['url']
+            )
+
+            text_project.save
+          end
+        rescue
+          next
         end
       end
     end
