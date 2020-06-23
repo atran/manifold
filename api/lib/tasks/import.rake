@@ -58,7 +58,8 @@ namespace :manifold do
       logger = Manifold::Rake.logger
       Project.all.each do |text_project|
         ApplicationRecord.transaction do
-          isbn = text_project.texts.first.metadata['unique_identifier'].tr('^0-9', '')
+          this_text = text_project.texts.first
+          isbn = this_text.metadata['unique_identifier'].tr('^0-9', '')
           api_url = "https://versobooks.com/api/v1/editions.json?isbn=#{isbn}"
           begin
             logger.info "Reading #{api_url}..."
@@ -74,7 +75,7 @@ namespace :manifold do
             text_project.subtitle = verso_metadata['teaser']
 
             # Image metadata
-            image_url = verso_metadata['primary_image_url']
+            image_url = verso_metadata['primary_image_url'] == nil ? verso_metadata['lead_image_url'] : verso_metadata['primary_image_url']
             filename = File.basename(URI.parse(image_url).path)
             ext = File.extname(filename)
             name = File.basename(filename, ext)
@@ -82,6 +83,7 @@ namespace :manifold do
             File.open(tmp, "wb") { |fo| fo.write(open(image_url).read) }
             text_project.avatar = open(tmp)
             text_project.hero = open(tmp)
+            this_text.cover = open(tmp)
 
             # Link metadata
             text_project.action_callouts.destroy_all
@@ -91,8 +93,15 @@ namespace :manifold do
             )
 
             text_project.save
+            this_text.save
           end
         rescue
+          text_project.avatar = nil
+          text_project.hero = nil
+          this_text.cover = nil
+
+          text_project.save
+          this_text.save
           next
         end
       end
