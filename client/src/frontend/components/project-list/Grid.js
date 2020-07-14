@@ -27,7 +27,7 @@ export default class ProjectListGrid extends Component {
 
   static defaultProps = {
     limit: null,
-    viewAllLabel: "See All Projects"
+    viewAllLabel: "See All Editions"
   };
 
   constructor() {
