@@ -83,7 +83,7 @@ export class ProjectWrapper extends Component {
           from={lh.link("frontendProject")}
           candidates={[
             {
-              label: "All Projects",
+              label: "All Editions",
               route: "frontendProjectsAll"
             }
           ]}

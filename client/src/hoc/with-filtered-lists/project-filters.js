@@ -14,9 +14,9 @@ export default function projectFilters({ snapshotState = false } = {}) {
         name: "draft",
         value: "",
         options: [
-          { label: "All projects", value: "" },
-          { label: "Only draft projects", value: "true" },
-          { label: "Only published projects", value: "false" }
+          { label: "All editions", value: "" },
+          { label: "Only draft editions", value: "true" },
+          { label: "Only published editions", value: "false" }
         ]
       },
       {
@@ -35,8 +35,8 @@ export default function projectFilters({ snapshotState = false } = {}) {
         options: [
           { label: "Most recently updated", value: "updated_at ASC" },
           { label: "Alphabetical by title", value: "sort_title ASC" },
-          { label: "Newest projects first", value: "created_at DESC" },
-          { label: "Oldest projects first", value: "created_at ASC" }
+          { label: "Newest editions first", value: "created_at DESC" },
+          { label: "Oldest editions first", value: "created_at ASC" }
         ]
       }
     ]
