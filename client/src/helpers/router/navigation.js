@@ -11,15 +11,15 @@ class Navigation {
         matchType: "link"
       },
       {
-        label: "Projects",
+        label: "Editions",
         route: "frontendProjects",
         children: [
           {
-            label: "All Projects",
+            label: "All Editions",
             route: "frontendProjectsAll"
           },
           {
-            label: "Project Collections",
+            label: "Edition Collections",
             route: "frontendProjectCollections"
           }
         ]
@@ -42,15 +42,15 @@ class Navigation {
         route: "backendDashboard"
       },
       {
-        label: "Projects",
+        label: "Editions",
         route: "backendProjects",
         children: [
           {
-            label: "All Projects",
+            label: "All Editions",
             route: "backendProjectsAll"
           },
           {
-            label: "Project Collections",
+            label: "Edition Collections",
             route: "backendProjectCollections"
           }
         ]
@@ -250,13 +250,13 @@ class Navigation {
   static projects = memoize(() => {
     return [
       {
-        label: "All Projects",
+        label: "All Editions",
         route: "backendProjectsAll",
         entity: "project",
         ability: "update"
       },
       {
-        label: "Project Collections",
+        label: "Edition Collections",
         route: "backendProjectCollections",
         entity: "projectCollection",
         ability: "update"

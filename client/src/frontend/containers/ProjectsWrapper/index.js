@@ -16,7 +16,7 @@ export default class ProjectsWrapper extends Component {
           from={lh.link("frontendProjects")}
           candidates={[
             {
-              label: "All Projects",
+              label: "All Editions",
               route: "frontendProjectsAll"
             }
           ]}
