@@ -26,12 +26,12 @@ class Navigation {
       }
     ];
 
-    if (authentication.currentUser) {
-      out.push({
-        label: "Following",
-        route: "frontendFollowing"
-      });
-    }
+    // if (authentication.currentUser) {
+    //   out.push({
+    //     label: "Following",
+    //     route: "frontendFollowing"
+    //   });
+    // }
     return out;
   });
 
