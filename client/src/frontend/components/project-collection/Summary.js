@@ -117,7 +117,7 @@ export default class ProjectCollectionSummary extends Component {
           ) : (
             <div className="entity-section-wrapper__body project-list empty">
               <p className="message">
-                {"This Project Collection is currently empty."}
+                {"This Book Collection is currently empty."}
               </p>
             </div>
           )}

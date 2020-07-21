@@ -15,13 +15,13 @@ export default class ProjectCollectionPlaceholder extends Component {
     return (
       <p>
         {
-          "But it’s easy to create new project collections with Manifold. If you have backend access, "
+          "But it’s easy to create new book collections with Manifold. If you have backend access, "
         }
         <Link to={adminLink}>head to the backend</Link>
         {" and select "}
-        <em>Add a New Project Collection</em>
+        <em>Add a New Book Collection</em>
         {
-          ". For more help, you can learn about creating and publishing Manifold Project Collections "
+          ". For more help, you can learn about creating and publishing Manifold Book Collections "
         }
         <a href={helpLink} target="_blank" rel="noopener noreferrer">
           here
@@ -38,7 +38,7 @@ export default class ProjectCollectionPlaceholder extends Component {
           <ContentPlaceholder.Wrapper context="frontend">
             <ContentPlaceholder.Title>
               <Authorize entity="projectCollection" ability="create">
-                Oh no. There are no project collections in this Manifold
+                Oh no. There are no book collections in this Manifold
                 library.
               </Authorize>
               <Authorize
@@ -46,7 +46,7 @@ export default class ProjectCollectionPlaceholder extends Component {
                 ability="create"
                 successBehavior="hide"
               >
-                There are no project collections in this Manifold library.
+                There are no book collections in this Manifold library.
               </Authorize>
             </ContentPlaceholder.Title>
             <ContentPlaceholder.Body>

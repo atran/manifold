@@ -166,7 +166,7 @@ export class ProjectCollectionDetailContainer extends Component {
         />
         <Utility.BackLinkPrimary
           link={lh.link("frontendProjectCollections")}
-          backText={"Back to Project Collections"}
+          backText={"Back to Book Collections"}
         />
         <HeadContent
           title={`\u201c${this.props.projectCollection.attributes.title}\u201d on ${settings.attributes.general.installationName}`}

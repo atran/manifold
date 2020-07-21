@@ -100,7 +100,7 @@ export class ProjectListFilters extends Component {
 
   featuredOptions() {
     if (this.props.hideFeatured) return null;
-    return <option value="featured">Featured Editions</option>;
+    return <option value="featured">Featured Books</option>;
   }
 
   filterValue() {

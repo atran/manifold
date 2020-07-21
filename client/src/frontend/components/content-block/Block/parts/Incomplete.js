@@ -66,7 +66,7 @@ export default class ProjectContentBlockIncomplete extends PureComponent {
         has_activity: (
           <>
             No activity has been recorded for this project. This warning will
-            disappear once there is project activity.
+            disappear once there is book activity.
           </>
         )
       },
@@ -103,7 +103,7 @@ export default class ProjectContentBlockIncomplete extends PureComponent {
             >
               resource collections
             </Link>{" "}
-            to the project to fix this block.
+            to the book to fix this block.
           </>
         )
       },
@@ -111,7 +111,7 @@ export default class ProjectContentBlockIncomplete extends PureComponent {
         has_metadata: (
           <>
             <Link to={this.projectEditLink("backendProjectMetadata")}>
-              Add project metadata
+              Add book metadata
             </Link>{" "}
             to fix this block.
           </>
@@ -140,7 +140,7 @@ export default class ProjectContentBlockIncomplete extends PureComponent {
           <span className="entity-section-wrapper__link-container">
             {this.presentBlockErrors}
             <span className="entity-section-wrapper__body--warning">
-              Note: This message is only visible to project editors.
+              Note: This message is only visible to book editors.
             </span>
           </span>
         </div>
