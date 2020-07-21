@@ -64,7 +64,7 @@ export class LayoutButtonNavigation extends Component {
     if (this.props.showFollowing !== true) return null;
     return (
       <Link to={lh.link("frontendFollowing")} className="button-icon-primary">
-        {this.renderButtonInner("following64", "Projects You’re Following")}
+        {this.renderButtonInner("following64", "Books You’re Following")}
       </Link>
     );
   };
