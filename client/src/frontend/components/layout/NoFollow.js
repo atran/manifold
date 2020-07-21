@@ -53,7 +53,7 @@ export default class NoFollow extends Component {
                   iconClass="button-icon-primary__icon"
                 />
                 <span className="button-icon-primary__text">
-                  See All Editions
+                  See All Books
                 </span>
               </Link>
             </ContentPlaceholder.Actions>
