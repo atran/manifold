@@ -32,7 +32,7 @@ export default class ProjectHeroCover extends PureComponent {
       <div className={`${this.props.blockClass}__cover-block`}>
         <figure className={figureClassNames}>
           {this.hasCover ? (
-            <img src={this.cover} alt="Project Hero Cover" />
+            <img src={this.cover} alt="Book Hero Cover" />
           ) : (
             <Project.Avatar project={this.props.project} />
           )}

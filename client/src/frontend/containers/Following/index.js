@@ -121,7 +121,7 @@ export class FollowingContainer extends Component {
             <div className="main">
               <Utility.IconComposer size={56} icon="lamp64" />
               <div className="body">
-                <h2 className="title">{"Featured Editions"}</h2>
+                <h2 className="title">{"Featured Books"}</h2>
               </div>
             </div>
             {this.renderFeaturedButton(featuredLimit)}

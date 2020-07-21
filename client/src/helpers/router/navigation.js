@@ -11,11 +11,11 @@ class Navigation {
         matchType: "link"
       },
       {
-        label: "Editions",
+        label: "Books",
         route: "frontendProjects",
         children: [
           {
-            label: "All Editions",
+            label: "All Books",
             route: "frontendProjectsAll"
           },
           {
@@ -42,11 +42,11 @@ class Navigation {
         route: "backendDashboard"
       },
       {
-        label: "Editions",
+        label: "Books",
         route: "backendProjects",
         children: [
           {
-            label: "All Editions",
+            label: "All Books",
             route: "backendProjectsAll"
           },
           {
@@ -250,7 +250,7 @@ class Navigation {
   static projects = memoize(() => {
     return [
       {
-        label: "All Editions",
+        label: "All Books",
         route: "backendProjectsAll",
         entity: "project",
         ability: "update"

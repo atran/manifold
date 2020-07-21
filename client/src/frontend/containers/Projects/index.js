@@ -157,7 +157,7 @@ export class ProjectsContainer extends Component {
             <div className="main">
               <Utility.IconComposer size={56} icon="projects64" />
               <div className="body">
-                <h2 className="title">{"All Editions"}</h2>
+                <h2 className="title">{"All Books"}</h2>
               </div>
             </div>
           </header>
@@ -198,7 +198,7 @@ export class ProjectsContainer extends Component {
           overflowX: "hidden"
         }}
       >
-        <h1 className="screen-reader-text">All Editions</h1>
+        <h1 className="screen-reader-text">All Books</h1>
         {this.renderProjectLibrary()}
         {this.hasVisibleProjects && (
           <Layout.ButtonNavigation

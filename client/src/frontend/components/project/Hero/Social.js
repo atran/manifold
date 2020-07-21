@@ -71,7 +71,7 @@ export default class ProjectHeroSocial extends PureComponent {
       >
         <IconComputed.Social icon={service} size={32} />
         <span className="screen-reader-text">
-          {`View this project on ${service}`}
+          {`View this book on ${service}`}
         </span>
       </a>
     );
