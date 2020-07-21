@@ -22,7 +22,8 @@ export class ProjectsContainer extends Component {
     const search = queryString.parse(location.search);
 
     const baseFilters = {
-      standaloneModeEnforced: false
+      standaloneModeEnforced: false,
+      order: 'sort_title ASC'
     };
 
     const { page, ...filters } = search;
@@ -88,6 +89,7 @@ export class ProjectsContainer extends Component {
   initialFilterState(init = {}) {
     const filter = omitBy(init, (vIgnored, k) => k === "page");
     filter.standaloneModeEnforced = false;
+    filter.order = "sort_title ASC";
     return filter;
   }
 
