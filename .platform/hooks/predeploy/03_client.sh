@@ -18,6 +18,6 @@ echo "if (!window.process) window.process = {};" >> dist/manifold/www/browser.co
 echo "if (!window.process.env) window.process.env = {};" >> dist/manifold/www/browser.config.js
 echo "process.env.DOMAIN = '${DOMAIN}';" >> dist/manifold/www/browser.config.js
 echo "process.env.NODE_ENV = '${NODE_ENV}';" >> dist/manifold/www/browser.config.js
-echo "process.env.SSL_ENABLED = false;" >> dist/manifold/www/browser.config.js
+echo "process.env.SSL_ENABLED = true;" >> dist/manifold/www/browser.config.js
 
 cd .. &>/dev/null
