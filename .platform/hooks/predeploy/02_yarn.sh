@@ -24,7 +24,8 @@ else
     echo "node --version: `node --version`"
   else
     echo "Installing Node"
-    yum install -y nodejs --enablerepo=epel
+    curl --silent --location https://rpm.nodesource.com/setup_12.x | sudo bash -
+    yum install -y nodejs
   fi
 
   # install yarn
