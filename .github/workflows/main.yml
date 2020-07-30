@@ -1,0 +1,44 @@
+name: Deploy Verso Staging
+
+on:
+  push:
+    branches:
+    - verso/staging
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set current date as env variable
+      id: datetime
+      run: echo "::set-env name=datetime::$(date +'%Y%m%dT%H%M%S')"
+    
+    - name: Checkout source code
+      uses: actions/checkout@v2
+      
+    - name: Setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+      
+    - name: Install client dependencies
+      working-directory: ./client
+      run: yarn install
+
+    - name: Build client package
+      working-directory: ./client
+      run: yarn build:prod
+
+    - name: Generate deployment package
+      run: zip -r deploy.zip .
+      
+    - name: Deploy to EB
+      uses: einaregilsson/beanstalk-deploy@v10
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: fulltext
+        environment_name: fulltext-staging
+        version_label: ${{ env.datetime }}
+        region: us-east-1
+        deployment_package: deploy.zip
