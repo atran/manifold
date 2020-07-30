@@ -87,10 +87,10 @@ class ProjectResourceCollectionsContainer extends Component {
       <ContentPlaceholder.Wrapper context="frontend">
         <ContentPlaceholder.Title icon="resourceCollection64">
           <Authorize entity="projectCollection" ability="create">
-            Uh-oh. This project doesn’t have any collections yet.
+            Uh-oh. This book doesn’t have any collections yet.
           </Authorize>
           <Authorize entity="project" ability="create" successBehavior="hide">
-            This project doesn’t have any collections yet.
+            This book doesn’t have any collections yet.
           </Authorize>
         </ContentPlaceholder.Title>
         <ContentPlaceholder.Body>

@@ -7,7 +7,7 @@ export default {
   [r.beProjectDestroy]: payloadIgnored => {
     return {
       level: 0,
-      heading: "The project has been deleted.",
+      heading: "The book has been deleted.",
       body: `Alas, it has passed into the endless night.`,
       expiration: defaultExpiration
     };
@@ -75,7 +75,7 @@ export default {
   "update-contributors": payloadIgnored => {
     return {
       level: 0,
-      heading: "Project contributors have been updated.",
+      heading: "Book contributors have been updated.",
       expiration: defaultExpiration
     };
   },
@@ -136,8 +136,8 @@ export default {
   "editor-backend-create-project": () => {
     return {
       level: 0,
-      heading: "Your project has been created.",
-      body: "A new manifold project is born.",
+      heading: "Your book has been created.",
+      body: "A new manifold book is born.",
       expiration: defaultExpiration
     };
   },
@@ -203,7 +203,7 @@ export default {
       query = payload.data.attributes.query;
     }
     const msg = query
-      ? `This project will now fetch tweets for "${query}".`
+      ? `This book will now fetch tweets for "${query}".`
       : "The Twitter query has been created.";
     return {
       level: 0,

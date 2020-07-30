@@ -75,10 +75,10 @@ export default class NotificationsForm extends Component {
     const items = config.app.locale.notificationPreferences.digest;
 
     const options = [
-      { key: "followedProjects", label: "Only Projects I'm Following" }
+      { key: "followedProjects", label: "Only Books I'm Following" }
     ];
     if (preferences.projects)
-      options.unshift({ key: "projects", label: "All Projects" });
+      options.unshift({ key: "projects", label: "All Books" });
     return (
       <>
         <fieldset

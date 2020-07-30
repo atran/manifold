@@ -28,7 +28,7 @@ class SearchContainer extends PureComponent {
 
   get facets() {
     return [
-      { label: "Projects", value: "Project" },
+      { label: "Books", value: "Project" },
       { label: "Resources", value: "Resource" },
       { label: "Texts", value: "Text" },
       { label: "Annotations", value: "Annotation" },

@@ -148,12 +148,12 @@ export default class ProjectGridItem extends Component {
           </figure>
           {projectMeta}
         </Link>
-        <Project.Follow
+        {/* <Project.Follow
           project={project}
           authenticated={this.props.authenticated}
           favorites={this.props.favorites}
           dispatch={this.props.dispatch}
-        />
+        /> */}
       </>
     );
   }
