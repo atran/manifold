@@ -1,7 +1,6 @@
 #!/bin/bash
 
 cd api
-. ../.env
 if [ "$RAILS_ENV" == "development" ]; then
     exec ./bin/sidekiq
 fi
