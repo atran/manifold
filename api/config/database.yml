@@ -1,10 +1,10 @@
 <%
 
-  user = ENV["RDS_USERNAME"]
-  pass = ENV["RDS_PASSWORD"]
-  host = ENV["RDS_HOSTNAME"] || 'localhost'
-  port = ENV["RDS_PORT"] || 5432
-  db   = ENV["RDS_DB_NAME"] || 'manifold_development'
+  user = ENV["RAILS_DB_USER"]
+  pass = ENV["RAILS_DB_PASS"]
+  host = ENV["RAILS_DB_HOST"] || 'localhost'
+  port = ENV["RAILS_DB_PORT"] || 5432
+  db   = ENV["RAILS_DB_NAME"] || 'manifold_development'
   test_db   = ENV["RAILS_TEST_DB_NAME"] || 'manifold_test'
 
 %>
