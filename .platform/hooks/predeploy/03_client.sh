@@ -1,12 +1,9 @@
 #!/bin/bash
 
-echo "==> Installing Client node dependencies…"
-cd client &>/dev/null
-if [ -f "package.json" ]; then
-  yarn install --check-files --force --production
-fi
+echo "Creating Client config files..."
 
-echo "==> Creating Client config files…"
+cd client &>/dev/null
+
 touch dist/manifold/ssr/ssr.config.js
 echo "process.env.DOMAIN = '${DOMAIN}';" >> dist/manifold/ssr/ssr.config.js
 echo "process.env.NODE_ENV = '${NODE_ENV}';" >> dist/manifold/ssr/ssr.config.js
@@ -19,5 +16,3 @@ echo "if (!window.process.env) window.process.env = {};" >> dist/manifold/www/br
 echo "process.env.DOMAIN = '${DOMAIN}';" >> dist/manifold/www/browser.config.js
 echo "process.env.NODE_ENV = '${NODE_ENV}';" >> dist/manifold/www/browser.config.js
 echo "process.env.SSL_ENABLED = true;" >> dist/manifold/www/browser.config.js
-
-cd .. &>/dev/null
