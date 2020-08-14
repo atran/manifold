@@ -207,7 +207,11 @@ export class NavigationStatic extends PureComponent {
         {this.hasLinks && this.renderSiteNav()}
         {/* {this.renderUserMenu(this.props)} */}
         <div className="show-75">
-          <LoginExternal />
+          { 
+            this.props.authentication.authenticated
+            ? <span />
+            : <LoginExternal />
+          }
         </div>
       </>
     );

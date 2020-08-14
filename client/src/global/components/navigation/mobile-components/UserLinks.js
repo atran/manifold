@@ -92,7 +92,7 @@ export default class UserLinks extends PureComponent {
             </span>
           </div>
         </li>
-        <li className="nested-nav__item">
+        {/* <li className="nested-nav__item">
           <button
             className="nested-nav__button"
             onClick={this.handleProfileClick}
@@ -153,7 +153,7 @@ export default class UserLinks extends PureComponent {
               Manage your Reading Groups
             </span>
           </li>
-        )}
+        )} */}
         <li className="nested-nav__item">
           <button
             className="nested-nav__button"
