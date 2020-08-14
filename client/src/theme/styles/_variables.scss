@@ -31,7 +31,7 @@ $neutral40hex: str-slice(#{$neutral40}, 2);
 $neutralOffWhite: $neutral05;
 $neutralOffBlack: $neutral90;
 
-$_accentPrimary: #ffffff !default;
+$_accentPrimary: #52e3ac !default;
 $_accentPrimaryDark: darken(desaturate($_accentPrimary, 20.97), 18.82) !default; // #34a178
 $_accentPrimaryMedium: darken(desaturate($_accentPrimary, 20.94), 11.57) !default; // #3dbd8c
 $_accentPrimaryLight: lighten(saturate($_accentPrimary, 0.36), 8.04) !default; // #75e9bd
