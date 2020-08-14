@@ -4,6 +4,7 @@ import get from "lodash/get";
 import lh from "helpers/linkHandler";
 import Avatar from "global/components/avatar";
 import IconComposer from "global/components/utility/IconComposer";
+import LoginExternal from "global/components/sign-in-up/LoginExternal";
 
 export default class UserLinks extends PureComponent {
   static propTypes = {
@@ -38,12 +39,6 @@ export default class UserLinks extends PureComponent {
     this.props.closeNavigation();
   };
 
-  handleLoginClick = event => {
-    event.preventDefault();
-    this.props.commonActions.toggleSignInUpOverlay();
-    this.props.closeNavigation();
-  };
-
   handleReadingGroupsClick = event => {
     event.preventDefault();
     this.props.history.push(lh.link("frontendReadingGroups"));
@@ -62,7 +57,9 @@ export default class UserLinks extends PureComponent {
             >
               <div className="nested-nav__grid-item">
                 <Avatar />
-                <span className="nested-nav__button-text">Login</span>
+                <LoginExternal
+                  dispatch={this.props.dispatch}
+                />
               </div>
             </button>
             <span id="user-menu-login-mobile" className="aria-describedby">
