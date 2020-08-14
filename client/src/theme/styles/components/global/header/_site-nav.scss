@@ -61,5 +61,15 @@
         outline-offset: 2px;
       }
     }
+
+    &--oauth {
+      cursor: pointer;
+      float: left;
+
+      @include respond($break75) {
+        float: right;
+        margin: 9px 0;
+      }
+    }
   }
 }

@@ -75,13 +75,8 @@ class Button extends Component {
 
     return (
       <span
-        className="site-nav__link show-75"
+        className="site-nav__link site-nav__link--oauth"
         onClick={this.openWindow}
-        style={{
-          cursor: "pointer",
-          float: "right",
-          margin: "10px 0",
-        }}
       >
         {icon}
         {label}
