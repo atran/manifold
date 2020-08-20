@@ -1,9 +1,13 @@
 import React from "react";
 import NavigationLink from "./NavigationLink";
+import LoginExternal from "global/components/sign-in-up/LoginExternal";
 import chunk from "lodash/chunk";
 import has from "lodash/has";
 
 export default function FooterPartNavigation({ children }) {
+  // Remove default Login button
+  children.shift();
+
   const withIcons = children.filter(child => has(child, "icon"));
   const withoutIcons = children.filter(child => !has(child, "icon"));
   const groupedLinks = chunk(withoutIcons, 4);
@@ -18,6 +22,12 @@ export default function FooterPartNavigation({ children }) {
         <ul className="app-footer-navigation__list">
           <li>
             <ul className="app-footer-navigation__group">
+              <li
+                className="app-footer-navigation__item"
+                key="oauth-login"
+              >
+                <LoginExternal />
+              </li>
               {withoutIcons.map(link => (
                 <li
                   className="app-footer-navigation__item"
@@ -57,6 +67,12 @@ export default function FooterPartNavigation({ children }) {
             <li key={linkGroupIndex}>
               {linkGroup.length > 0 && (
                 <ul className="app-footer-navigation__group">
+                    <li
+                      className="app-footer-navigation__item"
+                      key="oauth-login"
+                    >
+                      <LoginExternal />
+                    </li>
                   {linkGroup.map(link => (
                     <li
                       className="app-footer-navigation__item"
