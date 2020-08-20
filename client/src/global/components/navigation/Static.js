@@ -153,7 +153,7 @@ export class NavigationStatic extends PureComponent {
           )}
           {this.renderSearch(props)}
           <li className="user-nav__item">
-            <UserMenuButton
+            {/* <UserMenuButton
               authentication={props.authentication}
               active={props.visibility.uiPanels.user}
               showLoginOverlay={props.commonActions.toggleSignInUpOverlay}
@@ -168,7 +168,12 @@ export class NavigationStatic extends PureComponent {
               startLogout={props.commonActions.logout}
               hideUserMenu={props.commonActions.toggleUserPanel}
               hidePanel={props.commonActions.hideUserPanel}
-            />
+            /> */}
+            { 
+              this.props.authentication.authenticated
+              ? <span />
+              : <LoginExternal />
+            }
           </li>
         </ul>
       </nav>
@@ -205,14 +210,7 @@ export class NavigationStatic extends PureComponent {
     return (
       <>
         {this.hasLinks && this.renderSiteNav()}
-        {/* {this.renderUserMenu(this.props)} */}
-        <div className="show-75">
-          { 
-            this.props.authentication.authenticated
-            ? <span />
-            : <LoginExternal />
-          }
-        </div>
+        {this.renderUserMenu(this.props)}
       </>
     );
   }
