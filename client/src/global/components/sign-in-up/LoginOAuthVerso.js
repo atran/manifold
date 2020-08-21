@@ -1,14 +1,28 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { get, values } from "lodash";
+import { commonActions } from "actions/helpers";
 import withSettings from "hoc/with-settings";
 import Oauth from "./oauth";
 
-class LoginExternal extends Component {
+class LoginOauthVerso extends Component {
+  static mapStateToProps = state => {
+    return {
+      authentication: state.authentication,
+    };
+  };
+
   static propTypes = {
+    authentication: PropTypes.object,
     settings: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
   };
+
+  constructor(props) {
+    super(props);
+    this.commonActions = commonActions(props.dispatch);
+  }
 
   get customOAuthProviders() {
     return values(get(this.props, "settings.attributes.oauth")).filter(
@@ -30,25 +44,18 @@ class LoginExternal extends Component {
 
   render() {
     return (
-      <section className="login-external">
+      <span className="login-external">
         <Oauth.Monitor dispatch={this.props.dispatch} />
-        <Oauth.Button dispatch={this.props.dispatch} provider="facebook">
-          <span className="button-secondary__text">Log in with Facebook</span>
-        </Oauth.Button>
-        <Oauth.Button
-          dispatch={this.props.dispatch}
-          provider="google"
-          iconName="socialEmail32"
-        >
-          <span className="button-secondary__text">Log in with Google</span>
-        </Oauth.Button>
-        <Oauth.Button dispatch={this.props.dispatch} provider="twitter">
-          <span className="button-secondary__text">Log in with Twitter</span>
-        </Oauth.Button>
-        {this.customOAuthButtons}
-      </section>
+        { 
+            this.props.authentication.authenticated
+            ? <span onClick={this.commonActions.logout}>Log Out</span>
+            : this.customOAuthButtons
+        }
+      </span>
     );
   }
 }
 
-export default withSettings(LoginExternal);
+export default withSettings(
+  connect(LoginOauthVerso.mapStateToProps)(LoginOauthVerso)
+);

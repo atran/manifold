@@ -1,6 +1,6 @@
 import React from "react";
 import NavigationLink from "./NavigationLink";
-import LoginExternal from "global/components/sign-in-up/LoginExternal";
+import LoginOauthVerso from "global/components/sign-in-up/LoginOauthVerso";
 import chunk from "lodash/chunk";
 import has from "lodash/has";
 
@@ -26,7 +26,7 @@ export default function FooterPartNavigation({ children }) {
                 className="app-footer-navigation__item"
                 key="oauth-login"
               >
-                <LoginExternal />
+                <LoginOauthVerso />
               </li>
               {withoutIcons.map(link => (
                 <li
@@ -71,7 +71,7 @@ export default function FooterPartNavigation({ children }) {
                       className="app-footer-navigation__item"
                       key="oauth-login"
                     >
-                      <LoginExternal />
+                      <LoginOauthVerso />
                     </li>
                   {linkGroup.map(link => (
                     <li
