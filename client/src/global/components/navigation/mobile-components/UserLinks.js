@@ -39,6 +39,12 @@ export default class UserLinks extends PureComponent {
     this.props.closeNavigation();
   };
 
+  handleLoginClick = event => {
+    event.preventDefault();
+    this.props.commonActions.toggleSignInUpOverlay();
+    this.props.closeNavigation();
+  };
+
   handleReadingGroupsClick = event => {
     event.preventDefault();
     this.props.history.push(lh.link("frontendReadingGroups"));
@@ -52,7 +58,7 @@ export default class UserLinks extends PureComponent {
           <li className="nested-nav__item">
             <button
               className="nested-nav__button"
-              onClick={this.handleLoginClick}
+              // onClick={this.handleLoginClick}
               aria-describedby="user-menu-login-mobile"
             >
               <div className="nested-nav__grid-item">
