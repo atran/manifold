@@ -6,7 +6,7 @@ import { commonActions } from "actions/helpers";
 import withSettings from "hoc/with-settings";
 import Oauth from "./oauth";
 
-class LoginOauthVerso extends Component {
+class LoginOAuthVerso extends Component {
   static mapStateToProps = state => {
     return {
       authentication: state.authentication,
@@ -57,5 +57,5 @@ class LoginOauthVerso extends Component {
 }
 
 export default withSettings(
-  connect(LoginOauthVerso.mapStateToProps)(LoginOauthVerso)
+  connect(LoginOAuthVerso.mapStateToProps)(LoginOAuthVerso)
 );
