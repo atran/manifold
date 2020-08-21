@@ -22,7 +22,7 @@ export function manifoldLinks() {
   const links = [
     {
       to: lh.link("frontendProjectsAll"),
-      title: "Projects"
+      title: "Books"
     },
     {
       to: lh.link("frontend"),
