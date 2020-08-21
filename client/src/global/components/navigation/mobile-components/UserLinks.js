@@ -4,7 +4,7 @@ import get from "lodash/get";
 import lh from "helpers/linkHandler";
 import Avatar from "global/components/avatar";
 import IconComposer from "global/components/utility/IconComposer";
-import LoginOauthVerso from "global/components/sign-in-up/LoginOauthVerso";
+import LoginOAuthVerso from "global/components/sign-in-up/LoginOAuthVerso";
 
 export default class UserLinks extends PureComponent {
   static propTypes = {
@@ -63,7 +63,7 @@ export default class UserLinks extends PureComponent {
             >
               <div className="nested-nav__grid-item">
                 <Avatar />
-                <LoginOauthVerso />
+                <LoginOAuthVerso />
               </div>
             </button>
             <span id="user-menu-login-mobile" className="aria-describedby">

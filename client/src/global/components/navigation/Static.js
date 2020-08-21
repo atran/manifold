@@ -5,7 +5,7 @@ import SearchMenu from "global/components/search/menu";
 import UserMenuButton from "global/components/UserMenuButton";
 import UserMenuBody from "global/components/UserMenuBody";
 import UIPanel from "global/components/UIPanel";
-import LoginOauthVerso from "global/components/sign-in-up/LoginOauthVerso";
+import LoginOAuthVerso from "global/components/sign-in-up/LoginOAuthVerso";
 import { NavLink, withRouter } from "react-router-dom";
 import lh from "helpers/linkHandler";
 import { FrontendModeContext } from "helpers/contexts";
@@ -169,7 +169,7 @@ export class NavigationStatic extends PureComponent {
               hideUserMenu={props.commonActions.toggleUserPanel}
               hidePanel={props.commonActions.hideUserPanel}
             /> */}
-            <LoginOauthVerso />
+            <LoginOAuthVerso />
           </li>
         </ul>
       </nav>
