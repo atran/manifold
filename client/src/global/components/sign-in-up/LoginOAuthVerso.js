@@ -48,7 +48,12 @@ class LoginOAuthVerso extends Component {
         <Oauth.Monitor dispatch={this.props.dispatch} />
         { 
             this.props.authentication.authenticated
-            ? <span onClick={this.commonActions.logout}>Log Out</span>
+            ? <span 
+                className="site-nav__link site-nav__link--oauth" 
+                onClick={this.commonActions.logout}
+              >
+                Log Out
+              </span>
             : this.customOAuthButtons
         }
       </span>
