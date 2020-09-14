@@ -75,7 +75,7 @@ namespace :manifold do
             text_project.subtitle = verso_metadata['teaser']
 
             # Image metadata
-            image_url = verso_metadata['primary_image_url'] == nil ? verso_metadata['lead_image_url'] : verso_metadata['primary_image_url']
+            image_url = verso_metadata['flat_image_urls']['original']
             filename = File.basename(URI.parse(image_url).path)
             ext = File.extname(filename)
             name = File.basename(filename, ext)
