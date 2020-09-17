@@ -1,0 +1,13 @@
+.project-list.grid a .date, .project-list.grid .item-wrapper .date {
+  display: none;
+}
+
+.project-list.grid a .cover > img, .project-list.grid .item-wrapper .cover > img {
+  border-radius: 24px;
+}
+
+@include respond($break75) {
+  .browse .project-list.grid .cover {
+    height: 300px;
+  }
+}
