@@ -111,7 +111,7 @@ class ProjectAuthorizer < ApplicationAuthorizer
     return false unless readable_by?(user, options)
 
     if Settings.instance.general["restricted_access"]
-      return true if resource.open_access?
+      return true if resource.open_access? || known_user?(user) 
     else
       return true unless resource.restricted_access?
     end
