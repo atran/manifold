@@ -3,7 +3,7 @@
 }
 
 .project-list.grid a .cover > img, .project-list.grid .item-wrapper .cover > img {
-  border-radius: 24px;
+  border-radius: 12px;
 }
 
 .browse .bg-neutral05 .project-list.grid a:hover, .browse .bg-neutral05 .project-list.grid a.focus-visible {
@@ -17,11 +17,21 @@
 
 @include respond($break75) {
   .browse .project-list.grid .cover {
-    height: 300px;
+    height: 250px;
   }
 
   .browse .bg-neutral05 .project-list.grid a:hover, .browse .bg-neutral05 .project-list.grid a.focus-visible {
     box-shadow: none;
     background-color: transparent;
+  }
+
+  .project-list.grid a .cover > img, .project-list.grid .item-wrapper .cover > img {
+    border-radius: 24px;
+  }
+}
+
+@include respond($break90) {
+  .browse .project-list.grid .cover {
+    height: 300px;
   }
 }
