@@ -3,6 +3,35 @@
 
 // Do your @font-face embedding/include mixins here, in the privacy of your own partial
 
+// Verso
+@font-face {
+  font-family: 'tiempo';
+  font-style: normal;
+  font-weight: $regular;
+  src: url('../assets/fonts/tiempo/TiemposTextWeb-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'tiempo';
+  font-style: italic;
+  font-weight: $regular;
+  src: url('../assets/fonts/tiempo/TiemposTextWeb-RegularItalic.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'tiempo';
+  font-style: normal;
+  font-weight: $light;
+  src: url('../assets/fonts/tiempo/TiemposTextWeb-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'tiempo';
+  font-style: normal;
+  font-weight: $bold;
+  src: url('../assets/fonts/tiempo/TiemposTextWeb-Bold.woff') format('woff');
+}
+
 // TypeKit fallback serif font
 // --------------------------
 @font-face {
@@ -73,11 +102,11 @@
 // Mixins
 // --------------------------
 @mixin templateCopy {
-  font-family: 'freight-text-pro', 'aleo', serif;
+  font-family: 'tiempo', 'aleo', serif;
 }
 
 @mixin templateHead {
-  font-family: 'sofia-pro', 'trueno', sans-serif;
+  font-family: 'tiempo', 'trueno', sans-serif;
 }
 
 // Abstracted in order to allow scoped changes
