@@ -122,7 +122,9 @@ module Validation
     attributes = [:title, :sort_order, :visible, :homepage, :smart, :position, :icon,
                   { tag_list: [] }, :number_of_projects, :featured_only, :description,
                   :pending_slug, :homepage_start_date, :homepage_end_date,
-                  :homepage_count]
+                  :homepage_count, :social_description, attachment(:custom_icon),
+                  attachment(:hero), :hero_layout, :remove_hero, :remove_custom_icon,
+                  :social_title, attachment(:social_image), :remove_social_image]
     relationships = [:projects, :subjects]
     param_config = structure_params(attributes: attributes, relationships: relationships)
     params.permit(param_config)
@@ -328,6 +330,7 @@ module Validation
           :twitter_app_secret,
           :twitter_access_token_secret,
           :google_private_key,
+          :google_oauth_client_secret,
           :smtp_settings_password
         ]
       },
@@ -340,6 +343,7 @@ module Validation
           :google_private_key_id,
           :google_client_email,
           :google_client_id,
+          :google_oauth_client_id,
           :ga_tracking_id,
           :ga_profile_id
         ]
