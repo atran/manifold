@@ -6,7 +6,7 @@ module Api
         source = IngestionSource.find(params[:id])
         raise ActionController::RoutingError unless source.attachment
 
-        path = source.attachment.storage.path(source.attachment.id)
+        path = open(source.attachment.storage.url(source.attachment.id))
         send_file(
           path,
           type: source.attachment.mime_type,
