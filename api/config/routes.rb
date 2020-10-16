@@ -3,6 +3,10 @@ require "zhong/web"
 
 # rubocop:disable Metrics/BlockLength, Metrics/LineLength
 Rails.application.routes.draw do
+  get 'email_links/new', as: :new_magic_link
+  post 'email_links/create', as: :magic_link
+  get 'email_links/validate', as: :email_link
+
   concern :permissible do
     resources :permissions,
               only: [:create, :index, :show, :update, :destroy],
@@ -43,6 +47,7 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :email_links
       resources :entitlements, only: %i[index show create destroy]
       resources :entitlement_targets, only: %i[index]
       resources :export_targets

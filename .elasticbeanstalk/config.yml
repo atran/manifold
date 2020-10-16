@@ -1,0 +1,23 @@
+branch-defaults:
+  feature/aws-eb:
+    environment: fulltext-staging
+  feature/passwordless:
+    environment: fulltext-staging
+  verso/staging:
+    environment: fulltext-staging
+environment-defaults:
+  fulltext-prod:
+    branch: null
+    repository: null
+global:
+  application_name: fulltext
+  default_ec2_keyname: verso-tran
+  default_platform: Ruby 2.6 running on 64bit Amazon Linux 2
+  default_region: us-east-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  sc: git
+  workspace_type: Application
