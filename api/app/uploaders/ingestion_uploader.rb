@@ -27,8 +27,9 @@ class IngestionUploader < TusUploader
         #{@name}&.original_filename
       end
 
-      def #{@name}_path
-        #{@name}&.to_io.path
+      def local_#{@name}_path
+        file = #{@name}&.respond_to?(:download) ? #{@name}.download : #{@name}&.open
+        file&.path
       end
       RUBY
     end
