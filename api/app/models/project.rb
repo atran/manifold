@@ -19,23 +19,22 @@ class Project < ApplicationRecord
 
   # Concerns
   include Authority::Abilities
-  include Concerns::Entitleable
-  include Concerns::SerializedAbilitiesFor
-  include Concerns::StoresFingerprints
-  include Concerns::Taggable
+  include Entitleable
+  include SerializedAbilitiesFor
+  include StoresFingerprints
+  include Taggable
   include TrackedCreator
   include Collaborative
   include Citable
   include MoneyAttributes
-  include WithMarkdown
   include TruthyChecks
   include Filterable
   include Attachments
   include Metadata
-  include Concerns::HasFormattedAttributes
-  include Concerns::HasSortTitle
+  include HasFormattedAttributes
+  include HasSortTitle
   include WithPermittedUsers
-  include Concerns::Sluggable
+  include Sluggable
 
   # Magic
   has_formatted_attributes :description, :subtitle, :image_credits
@@ -64,7 +63,7 @@ class Project < ApplicationRecord
 
   jsonb_accessor(
     :export_configuration,
-    exports_as_bag_it: [:boolean, default: false, store_key: :bag_it]
+    exports_as_bag_it: [:boolean, { default: false, store_key: :bag_it }]
   )
 
   # Associations
@@ -94,9 +93,8 @@ class Project < ApplicationRecord
   has_many :subjects, through: :project_subjects
   has_many :ingestions, dependent: :destroy, inverse_of: :project
   has_many :twitter_queries, dependent: :destroy, inverse_of: :project
-  # rubocop:disable Rails/HasManyOrHasOneDependent
   has_many :permissions, as: :resource, inverse_of: :resource
-  # rubocop:enable Rails/HasManyOrHasOneDependent
+
   has_many :resource_imports, inverse_of: :project, dependent: :destroy
   has_many :tracked_dependent_versions,
            -> { order(created_at: :desc) },
@@ -120,15 +118,13 @@ class Project < ApplicationRecord
   has_many :project_exportations, dependent: :destroy
   has_one :current_project_export_status, -> { current }, class_name: "ProjectExportStatus"
   has_one :current_project_export, through: :current_project_export_status, source: :project_export
-
-  # rubocop:disable Style/Lambda, Rails/InverseOf
   has_many :uncollected_resources, ->(object) {
     where.not(id: object.collection_resources.select(:resource_id))
   }, class_name: "Resource"
-  # rubocop:enable Style/Lambda, Rails/InverseOf
+  # rubocop:enable
 
   # Callbacks
-  before_save :prepare_to_reindex_children, on: [:update], if: :draft_changed?
+  before_update :prepare_to_reindex_children, if: :draft_changed?
   before_create :assign_publisher_defaults!
   after_commit :trigger_creation_event, on: [:create]
   after_commit :queue_reindex_children_job
@@ -228,7 +224,6 @@ class Project < ApplicationRecord
   end
 
   # Search
-  # rubocop:disable Style/Lambda
   scope :search_import, -> {
     includes(
       :collaborators,
@@ -237,7 +232,6 @@ class Project < ApplicationRecord
       texts: :titles
     )
   }
-  # rubocop:enable Style/Lambda
 
   searchkick(word_start: TYPEAHEAD_ATTRIBUTES,
              callbacks: :async,
@@ -397,7 +391,7 @@ class Project < ApplicationRecord
     def build_read_ability_scope_for(user = nil)
       return published unless user.present?
 
-      where(arel_build_read_case_statement_for(user, false))
+      where(arel_build_read_case_statement_for(user, full: false))
     end
 
     # @see .arel_build_read_case_statement_for
@@ -406,7 +400,7 @@ class Project < ApplicationRecord
     def build_full_read_ability_scope_for(user = nil)
       return published.unrestricted unless user.present?
 
-      where(arel_build_read_case_statement_for(user, true))
+      where(arel_build_read_case_statement_for(user, full: true))
     end
 
     # @param [User, nil] user
@@ -427,7 +421,7 @@ class Project < ApplicationRecord
     #   access to it
     #
     # @param [User, nil] user
-    def arel_build_read_case_statement_for(user, full = false)
+    def arel_build_read_case_statement_for(user, full: false)
       arel_case.tap do |stmt|
         stmt.when(arel_table[:draft]).then(arel_with_draft_roles_for(user))
         if full

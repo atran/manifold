@@ -1,4 +1,4 @@
-module Api
+module API
   module Proxy
     class IngestionSourcesController < ActionController::API
 
@@ -6,9 +6,18 @@ module Api
         source = IngestionSource.find(params[:id])
         raise ActionController::RoutingError unless source.attachment
 
-        path = open(source.attachment.storage.url(source.attachment.id))
+        if source.attachment.storage.respond_to? :path
+          send_attachment(source)
+        else
+          redirect_to source.attachment.url
+        end
+      end
+
+      private
+
+      def send_attachment(source)
         send_file(
-          path,
+          source.attachment.storage.path(source.attachment.id),
           type: source.attachment.mime_type,
           disposition: "inline"
         )

@@ -3,8 +3,7 @@ class ProjectSummary < ApplicationRecord
   self.primary_key = :id
 
   include Attachments
-  include WithMarkdown
-  include Concerns::HasFormattedAttributes
+  include HasFormattedAttributes
 
   belongs_to :project
 

@@ -31,9 +31,7 @@ number_of_workers = ENV.fetch "WORKER_COUNT" do
   rails_environment == "development" ? 0 : 2
 end
 
-min_threads = ENV.fetch "RAILS_MIN_THREADS" do
-  0
-end
+min_threads = ENV.fetch("RAILS_MIN_THREADS", 0)
 
 max_threads = ENV.fetch "RAILS_MAX_THREADS" do
   is_development ? 16 : 6
@@ -52,6 +50,7 @@ on_refork do
   3.times { GC.start }
 end
 
+plugin :tmp_restart
 bind "unix://#{socket}" if listen_on_socket
 bind "tcp://#{address}:#{port}" if listen_on_port
 

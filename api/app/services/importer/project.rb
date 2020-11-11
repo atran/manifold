@@ -2,7 +2,6 @@ require "json"
 
 module Importer
   # This class imports a project.json file into Manifold
-  # rubocop:disable ClassLength
   class Project
     def initialize(path, creator, logger = Rails.logger)
       @creator = creator
@@ -14,7 +13,7 @@ module Importer
       @logger.error(e)
     end
 
-    def import(include_texts = true)
+    def import(include_texts: true)
       ApplicationRecord.transaction { upsert_project(include_texts) } if @project_json
     rescue StandardError => e
       @logger.error "Unable to import project at #{@path}"
@@ -123,11 +122,10 @@ module Importer
       maker.update(maker_attr)
       set_attachment(maker, :avatar, maker_json[:avatar])
       maker.save
-      collaborator = project.collaborators.find_or_create_by(
+      project.collaborators.find_or_create_by(
         maker_id: maker.id,
         role: role
       )
-      collaborator
     end
 
     def import_text(project, path)

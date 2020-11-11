@@ -1,4 +1,4 @@
-module Api
+module API
   module V1
     # Adds resourceful methods to a controller
     class ResourcefulMethods < Module
@@ -14,8 +14,7 @@ module Api
       # @return [Proc]
       attr_reader :model_scope
 
-      attr_reader :collection_name
-      attr_reader :resource_name
+      attr_reader :collection_name, :resource_name
 
       # @!attribute [r] method_names
       # @return [Hash{Symbol => Symbol}]
@@ -35,7 +34,7 @@ module Api
       end
 
       def inspect
-        "Api::V1::ResourcefulMethods(#{model_name})"
+        "API::V1::ResourcefulMethods(#{model_name})"
       end
 
       # @param [ApplicationController] controller
@@ -58,7 +57,6 @@ module Api
 
       # rubocop:disable Metrics/AbcSize
       # rubocop:disable Lint/UnderscorePrefixedVariableName
-      # rubocop:disable Metrics/LineLength
       def define_methods!
         _resource_configuration = self
 
@@ -134,7 +132,6 @@ module Api
           method_names[:resource_scope] = :"scope_for_#{the_collection_name}"
         end
       end
-      # rubocop:enable Metrics/LineLength
 
     end
   end
