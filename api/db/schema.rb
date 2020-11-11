@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_06_215946) do
+ActiveRecord::Schema.define(version: 2020_10_08_203503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_08_06_215946) do
     t.string "url"
     t.integer "kind", default: 0, null: false
     t.integer "location", default: 0, null: false
-    t.jsonb "attachment_data", default: {}
+    t.jsonb "attachment_data"
     t.boolean "button", default: false
     t.integer "position", default: 1, null: false
     t.uuid "project_id"
@@ -320,8 +320,8 @@ ActiveRecord::Schema.define(version: 2020_08_06_215946) do
     t.string "foreground_left"
     t.string "foreground_position"
     t.boolean "live", default: false
-    t.jsonb "background_data", default: {}
-    t.jsonb "foreground_data", default: {}
+    t.jsonb "background_data"
+    t.jsonb "foreground_data"
     t.boolean "include_sign_up", default: false, null: false
   end
 
@@ -401,7 +401,7 @@ ActiveRecord::Schema.define(version: 2020_08_06_215946) do
     t.string "attachment_content_type_deprecated"
     t.integer "attachment_file_size_deprecated"
     t.datetime "attachment_updated_at_deprecated"
-    t.jsonb "attachment_data", default: {}
+    t.jsonb "attachment_data"
     t.index ["kind"], name: "index_ingestion_sources_on_kind"
     t.index ["source_identifier"], name: "index_ingestion_sources_on_source_identifier"
     t.index ["text_id"], name: "index_ingestion_sources_on_text_id"
@@ -422,7 +422,7 @@ ActiveRecord::Schema.define(version: 2020_08_06_215946) do
     t.string "source_content_type"
     t.integer "source_file_size"
     t.datetime "source_updated_at"
-    t.jsonb "source_data", default: {}, null: false
+    t.jsonb "source_data"
     t.index ["creator_id"], name: "index_ingestions_on_creator_id"
     t.index ["project_id"], name: "index_ingestions_on_project_id"
     t.index ["state"], name: "index_ingestions_on_state"
@@ -441,7 +441,7 @@ ActiveRecord::Schema.define(version: 2020_08_06_215946) do
     t.integer "avatar_file_size_deprecated"
     t.datetime "avatar_updated_at_deprecated"
     t.string "suffix"
-    t.jsonb "avatar_data", default: {}
+    t.jsonb "avatar_data"
     t.string "prefix"
     t.string "cached_full_name"
     t.index "(((COALESCE(last_name, ''::character varying))::text || (COALESCE(first_name, ''::character varying))::text))", name: "index_makers_sort_by_name"
@@ -606,9 +606,9 @@ ActiveRecord::Schema.define(version: 2020_08_06_215946) do
     t.integer "events_count", default: 0
     t.string "download_url"
     t.string "download_call_to_action"
-    t.jsonb "cover_data", default: {}
-    t.jsonb "hero_data", default: {}
-    t.jsonb "avatar_data", default: {}
+    t.jsonb "cover_data"
+    t.jsonb "hero_data"
+    t.jsonb "avatar_data"
     t.boolean "dark_mode", default: false, null: false
     t.text "image_credits"
     t.integer "standalone_mode", default: 0, null: false
@@ -674,7 +674,7 @@ ActiveRecord::Schema.define(version: 2020_08_06_215946) do
     t.string "slug"
     t.integer "collection_resources_count", default: 0
     t.integer "events_count", default: 0
-    t.jsonb "thumbnail_data", default: {}
+    t.jsonb "thumbnail_data"
     t.index ["project_id"], name: "index_resource_collections_on_project_id"
     t.index ["slug"], name: "index_resource_collections_on_slug", unique: true
   end
@@ -735,7 +735,7 @@ ActiveRecord::Schema.define(version: 2020_08_06_215946) do
     t.string "data_content_type_deprecated"
     t.integer "data_file_size_deprecated"
     t.datetime "data_updated_at_deprecated"
-    t.jsonb "data_data", default: {}
+    t.jsonb "data_data"
     t.index ["creator_id"], name: "index_resource_imports_on_creator_id"
     t.index ["project_id"], name: "index_resource_imports_on_project_id"
   end
@@ -799,14 +799,14 @@ ActiveRecord::Schema.define(version: 2020_08_06_215946) do
     t.integer "minimum_height"
     t.boolean "iframe_allow_fullscreen", default: true
     t.citext "sort_title"
-    t.jsonb "attachment_data", default: {}
-    t.jsonb "high_res_data", default: {}
-    t.jsonb "transcript_data", default: {}
-    t.jsonb "translation_data", default: {}
-    t.jsonb "variant_format_one_data", default: {}
-    t.jsonb "variant_format_two_data", default: {}
-    t.jsonb "variant_thumbnail_data", default: {}
-    t.jsonb "variant_poster_data", default: {}
+    t.jsonb "attachment_data"
+    t.jsonb "high_res_data"
+    t.jsonb "transcript_data"
+    t.jsonb "translation_data"
+    t.jsonb "variant_format_one_data"
+    t.jsonb "variant_format_two_data"
+    t.jsonb "variant_thumbnail_data"
+    t.jsonb "variant_poster_data"
     t.string "pending_sort_title"
     t.index ["project_id"], name: "index_resources_on_project_id"
     t.index ["slug"], name: "index_resources_on_slug", unique: true
@@ -846,10 +846,10 @@ ActiveRecord::Schema.define(version: 2020_08_06_215946) do
     t.string "press_logo_mobile_content_type_deprecated"
     t.integer "press_logo_mobile_file_size_deprecated"
     t.datetime "press_logo_mobile_updated_at_deprecated"
-    t.jsonb "press_logo_data", default: {}
-    t.jsonb "press_logo_footer_data", default: {}
-    t.jsonb "press_logo_mobile_data", default: {}
-    t.jsonb "favicon_data", default: {}
+    t.jsonb "press_logo_data"
+    t.jsonb "press_logo_footer_data"
+    t.jsonb "press_logo_mobile_data"
+    t.jsonb "favicon_data"
     t.index ["singleton_guard"], name: "index_settings_on_singleton_guard", unique: true
   end
 
@@ -991,12 +991,13 @@ ActiveRecord::Schema.define(version: 2020_08_06_215946) do
     t.jsonb "citations", default: {}
     t.string "section_kind"
     t.integer "events_count", default: 0
-    t.jsonb "cover_data", default: {}
+    t.jsonb "cover_data"
     t.boolean "published", default: false, null: false
     t.string "cached_description_formatted"
     t.text "fingerprint", null: false
     t.jsonb "export_configuration", default: {}, null: false
     t.string "cached_description_plaintext"
+    t.boolean "ignore_access_restrictions", default: false
     t.index "((export_configuration @> '{\"epub_v3\": true}'::jsonb))", name: "index_texts_export_configuration_exports_as_epub_v3"
     t.index ["category_id"], name: "index_texts_on_category_id"
     t.index ["created_at"], name: "index_texts_on_created_at", using: :brin
@@ -1052,7 +1053,7 @@ ActiveRecord::Schema.define(version: 2020_08_06_215946) do
     t.string "classification", default: "default", null: false
     t.datetime "imported_at"
     t.string "import_source_id"
-    t.jsonb "avatar_data", default: {}
+    t.jsonb "avatar_data"
     t.text "role", null: false
     t.text "kind", null: false
     t.index ["classification"], name: "udx_users_anonymous", unique: true, where: "((classification)::text = 'anonymous'::text)"
@@ -1487,6 +1488,7 @@ UNION ALL
     t.publication_date,
     t.cover_data,
     t.toc,
+    t.ignore_access_restrictions,
     tb.id AS toc_section,
     ta.subtitle,
     ta.subtitle_formatted,

@@ -1,12 +1,15 @@
 class ExportUploader < Shrine
-  include Concerns::SharedUploader
+  include SharedUploader
 
   plugin :add_metadata
   plugin :determine_mime_type, analyzer: :marcel
-  plugin :module_include
-  plugin :moving
   plugin :pretty_location, class_underscore: true, identifier: :location_identifier
   plugin :validation_helpers
+  plugin :backgrounding
+
+  Attacher.destroy_block do
+    Attachments::DestroyAttachmentJob.perform_later(self.class.name, data)
+  end
 
   add_metadata :sha256 do |io, context|
     calculate_signature(io, :sha256, format: :hex) if context[:action] == :cache
@@ -24,21 +27,28 @@ class ExportUploader < Shrine
     validate_extension_inclusion %w[epub]
   end
 
-  # rubocop:disable Layout/IndentHeredoc
-  attachment_module do
+  class Attachment
     def included(model)
       super
 
       module_eval <<~RUBY, __FILE__, __LINE__ + 1
+
+      def #{@name}_content_type
+        #{@name}&.content_type
+      end
+
       def #{@name}_file_name
         #{@name}&.original_filename
       end
 
       def #{@name}_path
-        #{@name}&.to_io&.path
+        @local_#{@name}_file ||= #{@name}&.respond_to?(:download) ? #{@name}.download : #{@name}&.open
+        @local_#{@name}_file&.path
       end
+      alias #{@name}_local_path #{@name}_path
+
       RUBY
     end
   end
-  # rubocop:enable Layout/IndentHeredoc
+
 end

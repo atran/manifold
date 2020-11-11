@@ -1,4 +1,4 @@
-module Api
+module API
   module V1
     module ProjectCollections
       module Relationships
@@ -48,11 +48,9 @@ module Api
               .find(params[:project_collection_id])
           end
 
-          # rubocop:disable Metrics/LineLength
           def location
             api_v1_project_collection_relationships_collection_projects_url(@project_collection)
           end
-          # rubocop:enable Metrics/LineLength
 
           def includes
             %w()

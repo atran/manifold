@@ -12,7 +12,4 @@ module Patches
 end
 
 Shrine.plugin :data_uri
-
-# rubocop:disable Metrics/LineLength
-Shrine::Plugins::DataUri::DataFile.include Patches::ForShrine::AllowOriginalFilenameToBeSet
-# rubocop:enable Metrics/LineLength
+Shrine::DataFile.include Patches::ForShrine::AllowOriginalFilenameToBeSet

@@ -14,18 +14,17 @@ class Resource < ApplicationRecord
   }
   # Concerns
   include Authority::Abilities
-  include Concerns::SerializedAbilitiesFor
+  include SerializedAbilitiesFor
   include TrackedCreator
   include Filterable
-  include WithMarkdown
   include Attachments
   include ResourceAttachmentValidation
   include ResourceAttributeResets
-  include Concerns::HasFormattedAttributes
-  include Concerns::HasSortTitle
-  include Concerns::Fingerprinted
-  include Concerns::Taggable
-  include Concerns::Sluggable
+  include HasFormattedAttributes
+  include HasSortTitle
+  include Fingerprinted
+  include Taggable
+  include Sluggable
   include Metadata
 
   # Magic
@@ -137,9 +136,7 @@ class Resource < ApplicationRecord
       parent_project: project&.id,
       parent_keywords: resource_collections.map(&:title) + [project&.title],
       metadata: metadata.values.reject(&:blank?),
-      keywords: [
-        attachment_file_name
-      ].reject(&:blank?)
+      keywords: (tag_list + attachment_file_name).reject(&:blank?)
     }.merge(search_hidden)
   end
   # rubocop:enable Metrics/AbcSize
@@ -154,10 +151,9 @@ class Resource < ApplicationRecord
     !variant_thumbnail.present? || previous_changes.key?(:external_id)
   end
 
-  def queue_fetch_thumbnail(force = false)
-    unless force
-      return unless fetch_thumbnail?
-    end
+  def queue_fetch_thumbnail(force: false)
+    return unless force || fetch_thumbnail?
+
     FetchResourceThumbnail.perform_later(id)
   end
 

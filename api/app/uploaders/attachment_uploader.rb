@@ -1,15 +1,10 @@
 # @see Attachments
-# rubocop:disable Metrics/BlockLength
 class AttachmentUploader < Shrine
-  include Concerns::SharedUploader
+  include SharedUploader
 
   plugin :backgrounding
   plugin :validation_helpers
-  plugin :processing
-  plugin :versions
-  plugin :module_include
-  plugin :pretty_location
-  plugin :delete_promoted
+  plugin :derivatives, versions_compatibility: true
   plugin :remote_url, max_size: 20 * 1024 * 1024
   plugin :determine_mime_type, analyzer: :marcel
   plugin :store_dimensions, analyzer: lambda { |io, analyzers|
@@ -20,32 +15,41 @@ class AttachmentUploader < Shrine
     analyzers[:mini_magick].call io
   }
 
-  Attacher.promote { |data| Attachments::ProcessAttachmentJob.perform_later data }
+  Attacher.promote_block do
+    Attachments::ProcessAttachmentJob.perform_later(self.class.name, record.class.name, record.id, name, file_data)
+  end
+
+  Attacher.destroy_block do
+    Attachments::DestroyAttachmentJob.perform_later(self.class.name, data)
+  end
 
   Attacher.validate do
     conf = record.shrine_configuration_for name
 
     validate_mime_type_inclusion conf.validations.allowed_mime if conf.validate_content_type
 
-    validate_extension_inclusion conf.validations.allowed_ext
+    # In the test environment, we use a Shrine memory store as our cache store. This store
+    # does not handle file extensions correctly, since it deals in StringIO instances.
+    validate_extension_inclusion conf.validations.allowed_ext unless Rails.env.test?
   end
 
-  process(:store) do |io, context|
+  Attacher.derivatives_processor do |_original|
     attachment_options = context[:record].shrine_options_for context[:name]
 
-    Attachments::Processor.run!(
-      upload: io,
+    outcome = Attachments::Processor.run!(
+      upload: file,
       model: context[:record],
       attachment_options: attachment_options
     )
+    outcome
   end
 
-  # rubocop:disable Layout/IndentHeredoc
-  attachment_module do
+  class Attachment
     def initialize(*)
       super
 
       module_eval <<~RUBY, __FILE__, __LINE__ + 1
+
       def #{@name}_configuration
         shrine_configuration_for(#{@name.inspect})
       end
@@ -73,7 +77,7 @@ class AttachmentUploader < Shrine
       end
 
       def #{@name}_versions?
-        #{@name}.is_a? Hash
+        #{@name}_derivatives.is_a? Hash
       end
 
       def #{@name}_checksum
@@ -106,10 +110,6 @@ class AttachmentUploader < Shrine
 
       def #{@name}_original(&block)
         shrine_original_for #{@name.inspect}, &block
-      end
-
-      def #{@name}_original_path
-        #{@name}_original(&:local_path)
       end
 
       def #{@name}_meta
@@ -147,12 +147,18 @@ class AttachmentUploader < Shrine
       def #{@name}_is_pdf?
         shrine_upload_matches_type?(#{@name}_original, type: :pdf)
       end
+
+      def #{@name}_path
+        @local_#{@name}_file ||= #{@name}&.respond_to?(:download) ? #{@name}.download : #{@name}&.open
+        @local_#{@name}_file&.path
+      end
+      alias #{@name}_local_path #{@name}_path
+
       RUBY
     end
   end
-  # rubocop:enable Layout/IndentHeredoc
 
-  file_module do
+  class UploadedFile
     def as_dimensions_hash
       { width: width, height: height }
     end
@@ -161,5 +167,5 @@ class AttachmentUploader < Shrine
       to_io&.path
     end
   end
+
 end
-# rubocop:enable Metrics/BlockLength
