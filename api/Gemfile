@@ -114,6 +114,7 @@ gem "with_advisory_lock", "~> 4.0"
 gem "zaru", "~> 0.3.0"
 gem "zhong", "~> 0.2"
 
+gem "aws-sdk-s3", "~> 1.84"
 gem "google-api-client", "~> 0.13"
 gem "google_drive", "~> 2.0"
 gem "shrine-google_cloud_storage", "~> 3.0"
