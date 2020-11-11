@@ -2,7 +2,9 @@ require "shrine/storage/file_system"
 require "shrine/storage/memory"
 require "shrine/storage/tus"
 require "shrine/storage/google_cloud_storage"
+require "shrine/storage/s3"
 require "storage/tus_gcs"
+require "storage/tus_aws"
 
 module Storage
   class Factory
@@ -41,7 +43,7 @@ module Storage
       end
 
       def primary_store_is_aws?
-        ENV["MANIFOLD_SETTINGS_STORAGE_PRIMARY"]&.downcase == "gcs"
+        ENV["MANIFOLD_SETTINGS_STORAGE_PRIMARY"]&.downcase == "aws"
       end
 
       def mirror_store_is_gcs?
@@ -174,7 +176,9 @@ module Storage
       end
 
       def tus_server_aws_storage
-        # TODO: Implement this
+        Shrine::Storage::S3.new(
+          bucket: ENV["AWS_S3_BUCKET"]
+        )
       end
 
       private
@@ -188,7 +192,9 @@ module Storage
       end
 
       def aws_storage(bucket, prefix)
-        # TODO: Implement
+        Shrine::Storage::S3.new(
+          bucket: ENV["AWS_S3_BUCKET"]
+        )
       end
 
       def test_storage(path, prefix)
