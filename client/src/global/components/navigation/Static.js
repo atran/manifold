@@ -5,6 +5,7 @@ import SearchMenu from "global/components/search/menu";
 import UserMenuButton from "global/components/UserMenuButton";
 import UserMenuBody from "global/components/UserMenuBody";
 import UIPanel from "global/components/UIPanel";
+import LoginOAuthVerso from "global/components/sign-in-up/LoginOAuthVerso";
 import { NavLink, withRouter } from "react-router-dom";
 import lh from "helpers/linkHandler";
 import { FrontendModeContext } from "helpers/contexts";
@@ -152,7 +153,7 @@ export class NavigationStatic extends PureComponent {
           )}
           {this.renderSearch(props)}
           <li className="user-nav__item">
-            <UserMenuButton
+            {/* <UserMenuButton
               authentication={props.authentication}
               active={props.visibility.uiPanels.user}
               showLoginOverlay={props.commonActions.toggleSignInUpOverlay}
@@ -167,7 +168,8 @@ export class NavigationStatic extends PureComponent {
               startLogout={props.commonActions.logout}
               hideUserMenu={props.commonActions.toggleUserPanel}
               hidePanel={props.commonActions.hideUserPanel}
-            />
+            /> */}
+            <LoginOAuthVerso />
           </li>
         </ul>
       </nav>

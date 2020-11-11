@@ -129,7 +129,7 @@ export class ResourceDetailContainer extends PureComponent {
           />
         ) : (
           <BackLink.Register
-            backText="Back to Project Resources"
+            backText="Back to Book Resources"
             link={this.projectUrl()}
             title={project.attributes.titlePlaintext}
           />
@@ -148,7 +148,7 @@ export class ResourceDetailContainer extends PureComponent {
         {project ? (
           <section className="bg-neutral05">
             <Utility.BackLinkSecondary
-              backText="Back to Project Resources"
+              backText="Back to Book Resources"
               link={this.projectUrl()}
             />
           </section>

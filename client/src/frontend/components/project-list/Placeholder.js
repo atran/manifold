@@ -71,7 +71,7 @@ export default class ProjectListPlaceholder extends React.PureComponent {
                   className="button-icon-primary"
                 >
                   <span className="button-icon-primary__text">
-                    {"Publish a Project Now"}
+                    {"Publish a Book Now"}
                   </span>
                 </Link>
               </Authorize>

@@ -196,7 +196,7 @@ export class ProjectCollectionDetailContainer extends Component {
         />
         <Utility.BackLinkPrimary
           link={lh.link("frontendProjectCollections")}
-          backText={"Back to Project Collections"}
+          backText={"Back to Book Collections"}
         />
         <HeadContent
           title={this.title}

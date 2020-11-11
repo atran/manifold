@@ -4,6 +4,7 @@ import get from "lodash/get";
 import lh from "helpers/linkHandler";
 import Avatar from "global/components/avatar";
 import IconComposer from "global/components/utility/IconComposer";
+import LoginOAuthVerso from "global/components/sign-in-up/LoginOAuthVerso";
 
 export default class UserLinks extends PureComponent {
   static propTypes = {
@@ -57,12 +58,12 @@ export default class UserLinks extends PureComponent {
           <li className="nested-nav__item">
             <button
               className="nested-nav__button"
-              onClick={this.handleLoginClick}
+              // onClick={this.handleLoginClick}
               aria-describedby="user-menu-login-mobile"
             >
               <div className="nested-nav__grid-item">
                 <Avatar />
-                <span className="nested-nav__button-text">Login</span>
+                <LoginOAuthVerso />
               </div>
             </button>
             <span id="user-menu-login-mobile" className="aria-describedby">
@@ -95,7 +96,7 @@ export default class UserLinks extends PureComponent {
             </span>
           </div>
         </li>
-        <li className="nested-nav__item">
+        {/* <li className="nested-nav__item">
           <button
             className="nested-nav__button"
             onClick={this.handleProfileClick}
@@ -156,7 +157,7 @@ export default class UserLinks extends PureComponent {
               Manage your Reading Groups
             </span>
           </li>
-        )}
+        )} */}
         <li className="nested-nav__item">
           <button
             className="nested-nav__button"

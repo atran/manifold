@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd client
-exec yarn start
+exec yarn _serve:ssr

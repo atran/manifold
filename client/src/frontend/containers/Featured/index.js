@@ -81,14 +81,14 @@ export class FeaturedContainer extends Component {
         }}
       >
         <HeadContent title="Featured" appendTitle />
-        <h1 className="screen-reader-text">Featured Projects</h1>
+        <h1 className="screen-reader-text">Featured Books</h1>
         <section className="bg-neutral05">
           <div className="entity-section-wrapper container">
             <header className="entity-section-wrapper__heading section-heading">
               <div className="main">
                 <Utility.IconComposer size={56} icon="lamp64" />
                 <div className="body">
-                  <h2 className="title">{"Featured Projects"}</h2>
+                  <h2 className="title">{"Featured Books"}</h2>
                 </div>
               </div>
             </header>

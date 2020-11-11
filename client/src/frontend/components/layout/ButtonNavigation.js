@@ -46,10 +46,10 @@ export class LayoutButtonNavigation extends Component {
 
     if (this.props.showProjects) {
       url = lh.link("frontendProjectsAll");
-      label = "See All Projects";
+      label = "See All Books";
     } else if (this.props.showProjectCollections) {
       url = lh.link("frontendProjectCollections");
-      label = "See Project Collections";
+      label = "See Book Collections";
     }
 
     return (
@@ -64,7 +64,7 @@ export class LayoutButtonNavigation extends Component {
     if (this.props.showFollowing !== true) return null;
     return (
       <Link to={lh.link("frontendFollowing")} className="button-icon-primary">
-        {this.renderButtonInner("following64", "Projects You’re Following")}
+        {this.renderButtonInner("following64", "Books You’re Following")}
       </Link>
     );
   };
@@ -80,7 +80,7 @@ export class LayoutButtonNavigation extends Component {
     return (
       <section className={sectionClass}>
         <div className="container">
-          <h2 className="screen-reader-text">Project Navigation</h2>
+          <h2 className="screen-reader-text">Book Navigation</h2>
           <div className="button-nav button-nav--default">
             {this.renderProjectsButton()}
             {this.renderFollowingButton()}

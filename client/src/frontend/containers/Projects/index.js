@@ -22,7 +22,8 @@ export class ProjectsContainer extends Component {
     const search = queryString.parse(location.search);
 
     const baseFilters = {
-      standaloneModeEnforced: false
+      standaloneModeEnforced: false,
+      order: 'sort_title ASC'
     };
 
     const { page, ...filters } = search;
@@ -88,6 +89,7 @@ export class ProjectsContainer extends Component {
   initialFilterState(init = {}) {
     const filter = omitBy(init, (vIgnored, k) => k === "page");
     filter.standaloneModeEnforced = false;
+    filter.order = "sort_title ASC";
     return filter;
   }
 
@@ -157,7 +159,7 @@ export class ProjectsContainer extends Component {
             <div className="main">
               <Utility.IconComposer size={56} icon="projects64" />
               <div className="body">
-                <h2 className="title">{"All Projects"}</h2>
+                <h2 className="title">{"All Books"}</h2>
               </div>
             </div>
           </header>
@@ -198,7 +200,7 @@ export class ProjectsContainer extends Component {
           overflowX: "hidden"
         }}
       >
-        <h1 className="screen-reader-text">All Projects</h1>
+        <h1 className="screen-reader-text">All Books</h1>
         {this.renderProjectLibrary()}
         {this.hasVisibleProjects && (
           <Layout.ButtonNavigation

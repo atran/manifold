@@ -61,5 +61,10 @@
         outline-offset: 2px;
       }
     }
+
+    &--oauth {
+      cursor: pointer;
+      font-size: inherit;
+    }
   }
 }

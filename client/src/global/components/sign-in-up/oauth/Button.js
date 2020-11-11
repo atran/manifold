@@ -74,13 +74,13 @@ class Button extends Component {
     );
 
     return (
-      <button
-        className="button-secondary button-secondary--dark"
+      <span
+        className="site-nav__link site-nav__link--oauth"
         onClick={this.openWindow}
       >
         {icon}
         {label}
-      </button>
+      </span>
     );
   }
 }

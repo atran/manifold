@@ -11,27 +11,27 @@ class Navigation {
         matchType: "link"
       },
       {
-        label: "Projects",
+        label: "Books",
         route: "frontendProjects",
         children: [
           {
-            label: "All Projects",
+            label: "All Books",
             route: "frontendProjectsAll"
           },
           {
-            label: "Project Collections",
+            label: "Edition Collections",
             route: "frontendProjectCollections"
           }
         ]
       }
     ];
 
-    if (authentication.currentUser) {
-      out.push({
-        label: "Following",
-        route: "frontendFollowing"
-      });
-    }
+    // if (authentication.currentUser) {
+    //   out.push({
+    //     label: "Following",
+    //     route: "frontendFollowing"
+    //   });
+    // }
     return out;
   });
 
@@ -42,15 +42,15 @@ class Navigation {
         route: "backendDashboard"
       },
       {
-        label: "Projects",
+        label: "Books",
         route: "backendProjects",
         children: [
           {
-            label: "All Projects",
+            label: "All Books",
             route: "backendProjectsAll"
           },
           {
-            label: "Project Collections",
+            label: "Edition Collections",
             route: "backendProjectCollections"
           }
         ]
@@ -250,13 +250,13 @@ class Navigation {
   static projects = memoize(() => {
     return [
       {
-        label: "All Projects",
+        label: "All Books",
         route: "backendProjectsAll",
         entity: "project",
         ability: "update"
       },
       {
-        label: "Project Collections",
+        label: "Edition Collections",
         route: "backendProjectCollections",
         entity: "projectCollection",
         ability: "update"

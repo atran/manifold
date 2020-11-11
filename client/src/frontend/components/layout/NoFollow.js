@@ -18,13 +18,13 @@ export default class NoFollow extends Component {
         <div className="container">
           <ContentPlaceholder.Wrapper context="frontend">
             <ContentPlaceholder.Title>
-              You’re not following any projects yet
+              You’re not following any books yet
             </ContentPlaceholder.Title>
             <ContentPlaceholder.Body>
               <>
                 <p>
-                  {"But don't fret, it's easy to start following projects. " +
-                    "Just browse through the available projects, and when you find" +
+                  {"But don't fret, it's easy to start following books. " +
+                    "Just browse through the available books, and when you find" +
                     " one you like, select the green plus symbol. When the green " +
                     "plus is replaced with a blue checkmark, you're done!"}
                 </p>
@@ -53,7 +53,7 @@ export default class NoFollow extends Component {
                   iconClass="button-icon-primary__icon"
                 />
                 <span className="button-icon-primary__text">
-                  See All Projects
+                  See All Books
                 </span>
               </Link>
             </ContentPlaceholder.Actions>

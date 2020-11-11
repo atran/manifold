@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { get, values } from "lodash";
+import withSettings from "hoc/with-settings";
 import Oauth from "./oauth";
 
-export default class LoginExternal extends Component {
+class LoginExternal extends Component {
   static propTypes = {
     settings: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
@@ -49,3 +50,5 @@ export default class LoginExternal extends Component {
     );
   }
 }
+
+export default withSettings(LoginExternal);
