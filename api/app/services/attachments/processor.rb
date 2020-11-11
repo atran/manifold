@@ -14,14 +14,17 @@ module Attachments
       return versions unless can_process?
 
       process_versions!
-
       versions
     end
 
     private
 
     def versions
-      @versions ||= { original: upload }
+      @versions ||= {}
+    end
+
+    def local_source
+      @local_source ||= upload.respond_to?(:download) ? upload.download.open : upload.open
     end
 
     def process_versions!
@@ -32,7 +35,7 @@ module Attachments
     end
 
     def process_version(config)
-      compose VersionProcessor, config: config, source: upload
+      compose VersionProcessor, config: config, local_source: local_source, attachment: upload
     end
 
     def styles
@@ -45,17 +48,23 @@ module Attachments
       image? || pdf?
     end
 
-    # rubocop:disable Metrics/AbcSize, Lint/Void
+    # rubocop:disable Lint/Void
+    # rubocop:disable Metrics/AbcSize
     def image?
+      return false unless upload&.mime_type && upload&.extension
+
       !upload.mime_type.match(Regexp.union(CONFIG[:image][:allowed_mime])).nil?
       !upload.extension.match(Regexp.union(CONFIG[:image][:allowed_ext])).nil?
     end
 
     def pdf?
+      return false unless upload&.mime_type && upload&.extension
+
       !upload.mime_type.match(Regexp.union(CONFIG[:pdf][:allowed_mime])).nil?
       !upload.extension.match(Regexp.union(CONFIG[:pdf][:allowed_ext])).nil?
     end
-    # rubocop:enable Metrics/AbcSize, Lint/Void
+    # rubocop:enable Lint/Void
+    # rubocop:enable Metrics/AbcSize
 
   end
 end

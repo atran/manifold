@@ -6,11 +6,11 @@ class User < ApplicationRecord
   # Concerns
   include Authority::Abilities
   include Authority::UserAbilities
-  include Concerns::SerializedAbilitiesOn
-  include Concerns::SerializedAbilitiesFor
-  include Concerns::NotificationPreferences
-  include Concerns::ProvidesEntitlements
-  include Concerns::ReceivesEntitlements
+  include SerializedAbilitiesOn
+  include SerializedAbilitiesFor
+  include NotificationPreferences
+  include ProvidesEntitlements
+  include ReceivesEntitlements
   include Filterable
   include Recoverable
   include Attachments
@@ -44,12 +44,9 @@ class User < ApplicationRecord
   has_many :reading_groups, through: :reading_group_memberships
   has_many :entitlement_user_links, inverse_of: :user, dependent: :destroy
   has_many :granted_entitlements, through: :entitlement_user_links, source: :entitlement
-
-  # rubocop:disable Rails/HasManyOrHasOneDependent
   has_many :permissions
 
   has_one :derived_role, inverse_of: :user, class_name: "UserDerivedRole"
-  # rubocop:enable Rails/HasManyOrHasOneDependent
 
   # Validation
   validates :password, length: { minimum: 8 }, allow_nil: true, confirmation: true
@@ -130,7 +127,7 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email
-    AccountMailer.welcome(self, false).deliver
+    AccountMailer.welcome(self, created_by_admin: false).deliver
   end
 
   def created?(resource)

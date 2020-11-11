@@ -1,7 +1,7 @@
 module Entitlements
   # Create an Entitlement
   class Create < AbstractCreate
-    object :entitling_entity, class: "Concerns::ProvidesEntitlements"
+    object :entitling_entity, class: "ProvidesEntitlements"
 
     record :subject_url, class: "GlobalID", finder: :new
 
@@ -17,8 +17,7 @@ module Entitlements
       persist_model! entitlement, assimilate: true
     end
 
-    attr_reader :entitler
-    attr_reader :subject
+    attr_reader :entitler, :subject
 
     private
 
@@ -32,7 +31,6 @@ module Entitlements
     end
 
     # @return [void]
-    # rubocop:disable Metrics/AbcSize
     def find_subject!
       if subject_url.app.to_s != "entitlements"
         errors.add :subject_url, "must be gid://entitlements"
@@ -45,8 +43,8 @@ module Entitlements
       errors.add :subject_url, e.message
     else
       errors.add :subject_url, "does not correspond to a known subject" if @subject.blank?
-      errors.add :subject_url, "is not entitleable" unless @subject.kind_of?(Concerns::Entitleable)
+      errors.add :subject_url, "is not entitleable" unless @subject.is_a?(Entitleable)
     end
-    # rubocop:enable Metrics/AbcSize
+
   end
 end

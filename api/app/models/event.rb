@@ -10,12 +10,12 @@ class Event < ApplicationRecord
 
   # Authority
   include Authority::Abilities
-  include Concerns::SerializedAbilitiesFor
+  include SerializedAbilitiesFor
   self.authorizer_name = "ProjectChildAuthorizer"
 
   # Concerns
   include Filterable
-  include Concerns::HasFormattedAttributes
+  include HasFormattedAttributes
 
   has_formatted_attribute :subject_title
 
@@ -99,7 +99,7 @@ class Event < ApplicationRecord
   def subject_slug
     sluggables = %w(Project Resource Text ResourceCollection)
     return nil unless sluggables.include? subject_type
-    return subject.slug if subject&.respond_to?(:slug)
+    return subject.slug if subject.respond_to?(:slug)
 
     nil
   end
@@ -110,13 +110,11 @@ class Event < ApplicationRecord
 
   private
 
-  # rubocop:disable Rails/SkipsModelValidations
   def touch_project!
     return unless project.present?
     return unless project.persisted?
 
     project.touch
   end
-  # rubocop:enable Rails/SkipsModelValidations
 
 end

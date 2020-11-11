@@ -10,6 +10,7 @@ module Updaters
   included do
     include ActiveSupport::Callbacks
     attr_accessor :id, :type, :data, :attributes, :relationships
+
     define_callbacks :update_attributes, :update_relationships, :update, :save
   end
 
@@ -71,21 +72,17 @@ module Updaters
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
   def attachmentize_attributes!(attr)
     return unless attachment_fields.count.positive?
 
     attachment_fields.each do |field|
+      remove_key = "remove_#{field}".to_sym
+      remove_param = attr.extract!(remove_key)[remove_key]
       attachment = attachment_from_params!(attr, field)
-      attr[field] = attachment unless attachment.nil?
-    end
-    attachment_fields.each do |field|
-      key = "remove_#{field}".to_sym
-      remove_param = attr.extract!(key)[key]
+      attr[field] = attachment unless attachment.nil? || remove_param
       attr[field] = nil if remove_param
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def attachment_from_params!(attributes, key)
     params = attributes.extract!(key)[key]

@@ -2,17 +2,14 @@
 class ReadingGroupMembership < ApplicationRecord
 
   include Authority::Abilities
-  include Concerns::SerializedAbilitiesFor
+  include SerializedAbilitiesFor
   include Filterable
 
   validates :user_id, uniqueness: { scope: :reading_group_id }
 
   belongs_to :user, optional: false
   belongs_to :reading_group, optional: false, counter_cache: :memberships_count
-
-  # rubocop:disable Rails/HasManyOrHasOneDependent
   has_one :reading_group_membership_count
-  # rubocop:enable Rails/HasManyOrHasOneDependent
 
   delegate :full_name, to: :user, prefix: true
   delegate :anonymous?, to: :reading_group, prefix: true

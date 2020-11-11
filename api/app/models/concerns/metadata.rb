@@ -1,8 +1,7 @@
 # Helpers for hash attributes
-# rubocop:disable Rails/ReadWriteAttribute
 module Metadata
   extend ActiveSupport::Concern
-  include Concerns::HasFormattedAttributes
+  include HasFormattedAttributes
 
   def filter_metadata(properties)
     return unless metadata_changed?
@@ -61,4 +60,3 @@ module Metadata
     end
   end
 end
-# rubocop:enable Rails/ReadWriteAttribute

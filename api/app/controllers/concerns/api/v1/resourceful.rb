@@ -1,8 +1,7 @@
 require "uber/inheritable_attr"
 
-module Api
+module API
   module V1
-    # rubocop:disable Metrics/ModuleLength
     # Makes a controller resourceful.
     module Resourceful
       extend ActiveSupport::Concern
@@ -53,7 +52,7 @@ module Api
       # @param [Symbol] error_status
       # @param [Hash] options
       # @return [void]
-      # rubocop:disable Metrics/LineLength, Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize
       def render_single_resource(model, ok_status: default_ok_status, error_status: :unprocessable_entity, **options)
         options[:serializer] ||= model_serializer
         options[:serializer] = error_serializer if (action_name == "update" || action_name == "create") && !model.valid?
@@ -62,7 +61,7 @@ module Api
         options[:full] = true
         render_jsonapi model, options
       end
-      # rubocop:enable Metrics/LineLength, Metrics/AbcSize
+      # rubocop:enable Metrics/AbcSize
 
       # We want to make sure all our endpoints are authorized while we are in development.
       #
@@ -109,8 +108,9 @@ module Api
       # rubocop:disable Metrics/BlockLength
       # rubocop:disable Metrics/MethodLength
       class_methods do
+        # rubocop:disable Metrics/AbcSize
         def setup_resources!(model:, authorize: true, authorize_options: {}, &model_scope)
-          self.resource_configuration = Api::V1::ResourcefulMethods.new(
+          self.resource_configuration = API::V1::ResourcefulMethods.new(
             model: model,
             model_scope: model_scope
           )
@@ -134,6 +134,7 @@ module Api
           self.model_serializer = detect_model_serializer
           self.error_serializer = ::V1::ErrorSerializer
         end
+        # rubocop:enable Metrics/AbcSize
 
         # @return [String]
         def detect_model_name
@@ -154,7 +155,6 @@ module Api
       end
       # rubocop:enable Metrics/BlockLength
       # rubocop:enable Metrics/MethodLength
-      # rubocop:enable Metrics/ModuleLength
     end
   end
 end

@@ -1,6 +1,6 @@
 require "uuid"
 
-module Api
+module API
   module V1
     # Reading groups controller
     class ReadingGroupsController < ApplicationController
@@ -14,6 +14,7 @@ module Api
       def index
         @reading_groups = load_reading_groups
         respond_with_forbidden("reading groups", "list") && return unless ReadingGroup.listable_by?(current_user)
+
         render_multiple_resources @reading_groups
       end
 

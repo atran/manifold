@@ -1,7 +1,7 @@
 module ManifoldEnv
   # rubocop:disable Metrics/ParameterLists
   # rubocop:disable Style/MultilineBlockChain, Metrics/AbcSize,
-  # rubocop:disable Metrics/MethodLength, Metrics/BlockLength
+  # rubocop:disable Metrics/MethodLength
   class CustomOauthProvider
     def initialize(
       name:, client_id:, client_secret:, host:,
@@ -25,19 +25,13 @@ module ManifoldEnv
 
     # @!group Attributes
 
-    attr_reader :client_id
+    attr_reader :client_id, :client_secret, :descriptive_name, :email_key, :name_key, :nickname_key, :uid_key
 
     # @!attribute [r] client_options
     # @return [Hash]
     def client_options
       @client_options ||= build_client_options
     end
-
-    attr_reader :client_secret
-
-    attr_reader :descriptive_name
-
-    attr_reader :email_key
 
     # @!attribute [r] endpoints
     # @param [{ Symbol => ManifoldEnv::CustomOauthEndpoint }]
@@ -70,8 +64,6 @@ module ManifoldEnv
     def strategy_class
       @strategy_class ||= build_strategy_class
     end
-
-    attr_reader :uid_key
 
     # @!endgroup
 
@@ -182,5 +174,5 @@ module ManifoldEnv
   end
   # rubocop:enable Metrics/ParameterLists
   # rubocop:enable Style/MultilineBlockChain, Metrics/AbcSize,
-  # rubocop:enable Metrics/MethodLength, Metrics/BlockLength
+  # rubocop:enable Metrics/MethodLength
 end

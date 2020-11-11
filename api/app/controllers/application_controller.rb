@@ -5,12 +5,12 @@ class ApplicationController < ActionController::API
 
   include Authentication
   include Validation
-  include JsonApi
+  include JSONAPI
   include Authority::Controller
 
   before_action :set_paper_trail_whodunnit
 
-  rescue_from ApiExceptions::StandardError, with: :render_error_response
+  rescue_from APIExceptions::StandardError, with: :render_error_response
 
   protected
 
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::API
     @authority_user ||= current_user || anonymous_user
   end
 
-  # rubocop:disable Metrics/MethodLength, Lint/NestedMethodDefinition
+  # rubocop:disable Lint/NestedMethodDefinition
   def anonymous_user
     @anonymous_user ||= Naught.build do |config|
       config.impersonate User
@@ -37,7 +37,7 @@ class ApplicationController < ActionController::API
       end
     end.new
   end
-  # rubocop:enable Metrics/MethodLength, Lint/NestedMethodDefinition
+  # rubocop:enable Lint/NestedMethodDefinition
 
   def user_for_paper_trail
     current_user&.to_global_id.to_s if current_user
@@ -79,7 +79,7 @@ class ApplicationController < ActionController::API
     render json: resource
   end
 
-  def authorization_error_status(symbol = false)
+  def authorization_error_status(symbol: false)
     if current_user
       return :forbidden if symbol
 
@@ -97,7 +97,7 @@ class ApplicationController < ActionController::API
       title: I18n.t("controllers.errors.forbidden.class.title", vars).titlecase,
       detail: I18n.t("controllers.errors.forbidden.class.detail", vars)
     }
-    render json: { errors: build_api_error(options) }, status: authorization_error_status(true)
+    render json: { errors: build_api_error(options) }, status: authorization_error_status(symbol: true)
   end
 
   def authority_forbidden_resource_instance(error)
@@ -108,7 +108,7 @@ class ApplicationController < ActionController::API
       detail: I18n.t("controllers.errors.forbidden.instance.detail", vars),
       project: error_project_details(error)
     }
-    render json: { errors: build_api_error(options) }, status: authorization_error_status(true)
+    render json: { errors: build_api_error(options) }, status: authorization_error_status(symbol: true)
   end
 
   def respond_with_forbidden(resource, action)
@@ -118,7 +118,7 @@ class ApplicationController < ActionController::API
       title: I18n.t("controllers.errors.forbidden.instance.title", vars).titlecase,
       detail: I18n.t("controllers.errors.forbidden.instance.detail", vars)
     }
-    render json: { errors: build_api_error(options) }, status: authorization_error_status(true)
+    render json: { errors: build_api_error(options) }, status: authorization_error_status(symbol: true)
   end
 
   def resource_not_found
@@ -173,7 +173,7 @@ class ApplicationController < ActionController::API
     # @return [void]
     # rubocop:disable Lint/UnusedMethodArgument
     def resourceful!(model, authorize: true, **other_options, &model_scope)
-      include Api::V1::Resourceful
+      include API::V1::Resourceful
 
       other_options[:authorize] = true
       other_options[:model] = model
