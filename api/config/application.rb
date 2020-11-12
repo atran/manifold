@@ -44,6 +44,7 @@ module ManifoldApi
     config.action_mailer.delivery_method = :manifold_dynamic
 
     config.active_record.belongs_to_required_by_default = true
+    config.active_record.cache_versioning = false # Needed for AWS Elasticache
 
     config.action_cable.allowed_request_origins = [
       "http://#{ENV['DOMAIN']}",
