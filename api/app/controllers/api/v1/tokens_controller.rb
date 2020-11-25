@@ -18,9 +18,8 @@ module API
         end
         
         if token_params[:email] and params[:password].nil?
-          # TODO: send email link
           authenticated_user = User.find_by(email: token_params[:email])
-          AccountMailer.login_token(authenticated_user)
+          AccountMailer.login_token(authenticated_user).deliver
           render json: { message: "email sent" }, status: :ok
         end
       rescue StandardError => e
