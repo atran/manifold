@@ -22,5 +22,28 @@ export default {
         return json;
       });
     return results;
+  },
+
+  requestEmailToken(email) {
+    const lowLevelApiClient = new LowLevelApiClient();
+    const results = lowLevelApiClient
+      .call("/api/v1/tokens", "POST", { params: { email } })
+      .then(response => {
+        if (!response.ok) {
+          return Promise.reject(response);
+        }
+        return response.json().then(
+          json => {
+            return { json, response };
+          },
+          () => {
+            return { response };
+          }
+        );
+      })
+      .then(({ json }) => {
+        return json;
+      });
+    return results;
   }
 };

@@ -44,9 +44,12 @@ export default class Login extends Component {
   handleLogin = event => {
     event.preventDefault();
     const { dispatch } = this.props;
-    const action = currentUserActions.login({
-      email: this.state.email,
-      password: this.state.password
+    // const action = currentUserActions.login({
+    //   email: this.state.email,
+    //   password: this.state.password
+    // });
+    const action = currentUserActions.requestLoginEmail({
+      email: this.state.email
     });
     dispatch(action);
   };
@@ -86,7 +89,7 @@ export default class Login extends Component {
               />
             </div>
           </div>
-          <div className="row-1-p">
+          {/* <div className="row-1-p">
             <div className="form-input">
               <label htmlFor="login-password">Password</label>
               <input
@@ -98,7 +101,7 @@ export default class Login extends Component {
                 placeholder="Password"
               />
             </div>
-          </div>
+          </div> */}
           <div className="row-1-p">
             <div className={submitClass}>
               {this.authenticationError() ? (
@@ -109,12 +112,12 @@ export default class Login extends Component {
               <input
                 className="button-secondary button-secondary--with-room"
                 type="submit"
-                value="Log in"
+                value="Request Log In Email"
               />
             </div>
           </div>
         </form>
-        <p className="login-links">
+        {/* <p className="login-links">
           <button
             onClick={event =>
               this.props.handleViewChange("account-password-forgot", event)
@@ -131,7 +134,7 @@ export default class Login extends Component {
           >
             {"Need to sign up?"}
           </button>
-        </p>
+        </p> */}
         <LoginExternal
           settings={this.props.settings}
           dispatch={this.props.dispatch}

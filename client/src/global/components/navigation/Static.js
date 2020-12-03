@@ -153,7 +153,7 @@ export class NavigationStatic extends PureComponent {
           )}
           {this.renderSearch(props)}
           <li className="user-nav__item">
-            {/* <UserMenuButton
+            <UserMenuButton
               authentication={props.authentication}
               active={props.visibility.uiPanels.user}
               showLoginOverlay={props.commonActions.toggleSignInUpOverlay}
@@ -168,8 +168,8 @@ export class NavigationStatic extends PureComponent {
               startLogout={props.commonActions.logout}
               hideUserMenu={props.commonActions.toggleUserPanel}
               hidePanel={props.commonActions.hideUserPanel}
-            /> */}
-            <LoginOAuthVerso />
+            />
+            {/* <LoginOAuthVerso /> */}
           </li>
         </ul>
       </nav>

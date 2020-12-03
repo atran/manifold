@@ -132,6 +132,14 @@ function authenticateWithToken(authToken, dispatch) {
   return promise;
 }
 
+
+function requestLoginEmail(email) {
+  const promise = tokensAPI.requestEmailToken(email);
+
+  promise.then( resp => console.log(resp) );
+  return promise;
+}
+
 // This function can be called on the server or the client. It's called outside of the
 // normal dispatch process during bootstrap, because it needs access to complex objects
 // that can't be dispatched, such as the browser and server cookie helpers. The server-
@@ -170,6 +178,10 @@ export default function currentUserMiddleware({ dispatch, getState }) {
     if (action.type === "RESTORE_SESSION") {
       dispatch(actions.loginStart());
       return authenticateWithCookie(payload, dispatch);
+    }
+
+    if (action.type === "LOGIN_EMAIL_REQUEST") {
+      requestLoginEmail(payload.email)
     }
 
     if (action.type === "LOGIN") {

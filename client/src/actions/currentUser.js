@@ -10,6 +10,9 @@ export const unfollow = createAction(
   (favoritableId, favoriteId) => ({ favoritableId, favoriteId })
 );
 
+// Request a login email
+export const requestLoginEmail = createAction("LOGIN_EMAIL_REQUEST", email => email)
+
 // The login hash can be an auth token (string) or a an { email, password } object.
 export const login = createAction("LOGIN", loginHash => loginHash);
 
@@ -55,6 +58,7 @@ export const deleteCurrentUserFavorite = createAction(
 export default {
   follow,
   unfollow,
+  requestLoginEmail,
   login,
   loginStart,
   loginComplete,
